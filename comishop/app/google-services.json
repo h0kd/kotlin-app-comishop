@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "621725407500",
+    "project_id": "comishop-f00c7",
+    "storage_bucket": "comishop-f00c7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:621725407500:android:beaf4dfef24fb32e891129",
+        "android_client_info": {
+          "package_name": "com.example.comishop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrfFbIVqJwJL1oU5sGcBLf5l6MpGJ8e5Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

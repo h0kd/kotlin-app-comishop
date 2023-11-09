@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_gradient"
+    tools:context=".AdminActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="358dp"
+        android:layout_height="631dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="39dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/boton_volver_admin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+        tools:ignore="TextSizeCheck">
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="358dp"
+            android:layout_height="203dp"
+            android:layout_marginStart="1dp"
+            android:contentDescription="@string/todo5"
+            app:srcCompat="@drawable/logo"
+            tools:ignore="VisualLintBounds" />
+
+        <TextView
+            android:id="@+id/total_venta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Productos"
+            android:textSize="24sp" />
+
+        <ListView
+            android:id="@+id/lista_admin"
+            android:layout_width="match_parent"
+            android:layout_height="262dp" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout6"
+            android:layout_width="358dp"
+            android:layout_height="66dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="26dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/boton_eliminar_a"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Eliminar" />
+
+            <Button
+                android:id="@+id/boton_editar_admin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Editar" />
+
+            <Button
+                android:id="@+id/boton_agregar_admin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Agregar Producto" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/boton_volver_admin"
+        android:layout_width="134dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="138dp"
+        android:layout_marginTop="39dp"
+        android:layout_marginEnd="139dp"
+        android:layout_weight="1"
+        android:text="Volver"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
