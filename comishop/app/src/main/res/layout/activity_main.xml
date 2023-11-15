@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_gradient"
+    android:background="@drawable/gradiente"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -61,7 +61,7 @@
         android:layout_marginTop="7dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="137dp"
-        android:backgroundTint="#0B0808"
+        android:backgroundTint="#3498DB"
         android:text="Ingresar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

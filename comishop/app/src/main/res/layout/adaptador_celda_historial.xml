@@ -6,8 +6,8 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="399dp"
-        android:layout_height="166dp"
+        android:layout_width="378dp"
+        android:layout_height="132dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="1dp"
         android:layout_marginEnd="16dp"
@@ -37,7 +37,21 @@
                 android:textSize="20sp" />
 
             <TextView
+                android:id="@+id/cantidad_field_historial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textSize="20sp" />
+
+            <TextView
                 android:id="@+id/precio_u_historial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/precio_venta_his"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TextView"
@@ -50,26 +64,6 @@
                 android:text="TextView"
                 android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/direccion_historial"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/telefono_historia"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/nombre_historial"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textSize="20sp" />
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

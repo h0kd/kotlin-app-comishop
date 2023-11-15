@@ -32,6 +32,8 @@ data class Venta(
     var telefono: String = "",
     var nombreCliente: String = "",
     var precioVenta: Int = 0,
-    var url : String=""
+    var url : String="",
+    var cantidad : Int = 1,
+    val idUser: String? = null
 
 ): Parcelable

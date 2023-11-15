@@ -47,15 +47,15 @@ class AdminActivity : AppCompatActivity() {
         }
 
         botonEliminar.setOnClickListener {
-            val itemsSeleccionados = adaptador.getItemsSeleccionados().toList()
+            val itemsSeleccionados = adaptador.getItemSelected()
             for (itemSeleccionado in itemsSeleccionados) {
                 eliminarProductoDeFirebase(itemSeleccionado)
             }
-            adaptador.removeItemsSeleccionados()
+            adaptador.removeItemSelected()
         }
         botonEditar.setOnClickListener {
             finish()
-            val itemsSeleccionados = adaptador.getItemsSeleccionados().toList()
+            val itemsSeleccionados = adaptador.getItemSelected().toList()
 
             if (itemsSeleccionados.isNotEmpty()) {
                 val productoAEditar = itemsSeleccionados.first()

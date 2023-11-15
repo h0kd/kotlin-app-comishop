@@ -4,17 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_gradient"
+    android:background="@drawable/gradiente"
     tools:context="com.example.comishop.VentaEditarActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout4"
-        android:layout_width="300dp"
-        android:layout_height="554dp"
+        android:layout_width="358dp"
+        android:layout_height="643dp"
         android:layout_marginStart="35dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="35dp"
-        android:layout_marginBottom="52dp"
+        android:layout_marginBottom="1dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout9"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,10 +24,16 @@
 
         <ImageView
             android:id="@+id/imagen_nuevo"
-            android:layout_width="match_parent"
-            android:layout_height="156dp"
+            android:layout_width="wrap_content"
+            android:layout_height="115dp"
             app:srcCompat="@drawable/logo"
             tools:srcCompat="@drawable/logo" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nombre De Producto" />
 
         <EditText
             android:id="@+id/nombre_p_venta2"
@@ -36,7 +42,13 @@
             android:ems="10"
             android:hint="Nombre de Producto"
             android:inputType="text"
-            android:textSize="20sp" />
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Precio Unitario" />
 
         <EditText
             android:id="@+id/precio_u_venta2"
@@ -46,9 +58,30 @@
             android:ems="10"
             android:hint="Precio Unitario"
             android:inputType="text"
-            android:minHeight="45dp"
-            android:textSize="20sp"
+            android:minHeight="48dp"
+            android:textSize="14sp"
             tools:ignore="DuplicateSpeakableTextCheck" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cantidad" />
+
+        <EditText
+            android:id="@+id/cantidad_editar_venta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Cantidad"
+            android:inputType="text"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Precio De Venta" />
 
         <EditText
             android:id="@+id/precio_venta_2"
@@ -56,7 +89,14 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Precio Venta"
-            android:inputType="text" />
+            android:inputType="text"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Valor Despacho" />
 
         <EditText
             android:id="@+id/valor_despacho_venta2"
@@ -67,7 +107,13 @@
             android:hint="Valor despacho"
             android:inputType="text"
             android:minHeight="48dp"
-            android:textSize="20sp" />
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Direccion" />
 
         <EditText
             android:id="@+id/direccion_venta2"
@@ -77,7 +123,13 @@
             android:hint="Direccion"
             android:inputType="text"
             android:minHeight="48dp"
-            android:textSize="20sp" />
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Telefono" />
 
         <EditText
             android:id="@+id/telefono_venta2"
@@ -87,7 +139,13 @@
             android:hint="Telefono"
             android:inputType="text"
             android:minHeight="48dp"
-            android:textSize="20sp" />
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nombre Cliente" />
 
         <EditText
             android:id="@+id/nombre_cliente_venta2"
@@ -97,17 +155,19 @@
             android:hint="Nombre cliente"
             android:inputType="text"
             android:minHeight="48dp"
-            android:textSize="20sp" />
+            android:textSize="14sp" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout9"
-        android:layout_width="359dp"
-        android:layout_height="80dp"
+        android:layout_width="346dp"
+        android:layout_height="68dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="1dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="3dp"
         android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
@@ -116,7 +176,7 @@
             android:id="@+id/boton_regreso2"
             android:layout_width="179dp"
             android:layout_height="68dp"
-            android:backgroundTint="#000f18"
+            android:backgroundTint="#3498DB"
             android:text="Regresar"
             tools:ignore="DuplicateSpeakableTextCheck" />
 
@@ -124,7 +184,7 @@
             android:id="@+id/boton_confirmar2"
             android:layout_width="166dp"
             android:layout_height="68dp"
-            android:backgroundTint="#000f18"
+            android:backgroundTint="#3498DB"
             android:text="Confirma Venta" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,7 +18,7 @@ import com.squareup.picasso.Picasso
 class AdaptadorDeCeldas(private val context: Context, private val almacenDatos: ArrayList<Product>) : BaseAdapter() {
 
     private val inflador: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-    private val elementosSeleccionados = HashSet<Product>()
+    private var elementoSeleccionado: Int = -1
 
     override fun getCount(): Int {
         return almacenDatos.size
@@ -36,19 +36,17 @@ class AdaptadorDeCeldas(private val context: Context, private val almacenDatos: 
         val filaCelda = inflador.inflate(R.layout.adaptador_de_celda, parent, false)
         val imagen: ImageView = filaCelda.findViewById(R.id.imagen_producto)
         val nombre_producto: TextView = filaCelda.findViewById(R.id.nombre_producto)
-        //val descripcion_producto: TextView = filaCelda.findViewById(R.id.descripcion_field)
         val precio_producto: TextView = filaCelda.findViewById(R.id.precio_field)
 
         val producto = almacenDatos[position]
 
         nombre_producto.text = "Nombre: " + producto.nombre
-        //descripcion_producto.text = "Descripción: " + producto.descripcion
         precio_producto.text = "Precio: $" + producto.precio.toString()
 
         // Aplicar un estilo diferente si el producto está seleccionado
-        if (elementosSeleccionados.contains(producto)) {
-            // Aplicar el estilo para elementos seleccionados
-            filaCelda.setBackgroundColor(Color.GREEN)
+        if (position == elementoSeleccionado) {
+            // Aplicar el estilo para el elemento seleccionado
+            filaCelda.setBackgroundColor(Color.rgb(173, 216, 230))
         } else {
             // Restaurar el estilo normal
             filaCelda.setBackgroundColor(Color.TRANSPARENT)
@@ -60,34 +58,34 @@ class AdaptadorDeCeldas(private val context: Context, private val almacenDatos: 
             .into(imagen)
 
         filaCelda.setOnClickListener {
-            if (elementosSeleccionados.contains(producto)) {
-                // El elemento ya está seleccionado, deselecciónalo
-                elementosSeleccionados.remove(producto)
-            } else {
-                // El elemento no está seleccionado, selecciónalo
-                elementosSeleccionados.add(producto)
-            }
+            elementoSeleccionado = position
             notifyDataSetChanged()
         }
 
         return filaCelda
     }
 
-    fun getItemsSeleccionados(): Set<Product> {
-        return elementosSeleccionados
+    fun getItemSelected(): List<Product> {
+        return if (elementoSeleccionado != -1) {
+            listOf(almacenDatos[elementoSeleccionado])
+        } else {
+            emptyList()
+        }
     }
 
     fun clearSelection() {
-        elementosSeleccionados.clear()
+        elementoSeleccionado = -1
         notifyDataSetChanged()
     }
 
-    fun removeItemsSeleccionados() {
-        almacenDatos.removeAll(elementosSeleccionados)
-        elementosSeleccionados.clear()
-        notifyDataSetChanged()
+    fun removeItemSelected() {
+        if (elementoSeleccionado != -1) {
+            almacenDatos.removeAt(elementoSeleccionado)
+            clearSelection()
+        }
     }
 }
+
 
 
 

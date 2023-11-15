@@ -51,7 +51,7 @@ class ProductosActivity : AppCompatActivity() {
             finish()
         }
         botonVenta.setOnClickListener {
-            val itemsSeleccionados = adaptador.getItemsSeleccionados()
+            val itemsSeleccionados = adaptador.getItemSelected()
 
             if (itemsSeleccionados.isNotEmpty()) {
                 val productoAVender = itemsSeleccionados.first()

@@ -13,7 +13,7 @@ import com.squareup.picasso.Picasso
 class AdaptadorDeCeldasHistorial(private val context: Context, private val almacenDatos: ArrayList<Venta>): BaseAdapter() {
 
     private val inflador: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-    private val elementosSeleccionados = HashSet<Venta>()
+    private var elementoSeleccionado: Int = -1
 
     override fun getCount(): Int {
         return almacenDatos.size
@@ -33,18 +33,19 @@ class AdaptadorDeCeldasHistorial(private val context: Context, private val almac
         val nombreProducto: TextView = filaCelda.findViewById(R.id.nombre_p_historiak)
         val precioUnitario: TextView = filaCelda.findViewById(R.id.precio_u_historial)
         val precioDespacho: TextView = filaCelda.findViewById(R.id.valor_despacho_historial)
-        val telefono: TextView = filaCelda.findViewById(R.id.telefono_historia)
-        val nombreCliente: TextView = filaCelda.findViewById(R.id.nombre_historial)
-        val direccion: TextView = filaCelda.findViewById(R.id.direccion_historial)
+
+        val pVenta: TextView = filaCelda.findViewById(R.id.precio_venta_his)
+        val cantidadVenta : TextView = filaCelda.findViewById(R.id.cantidad_field_historial)
+
 
         val productoVendido = almacenDatos[position]
 
         nombreProducto.text = "Nombre Producto: " + productoVendido.nombreProducto
         precioUnitario.text = "Precio Unitario: " + productoVendido.precioUnitario.toString()
+        pVenta.text = "Precio Venta: " + productoVendido.precioVenta.toString()
         precioDespacho.text = "Precio Despacho: " + productoVendido.valorDespacho.toString()
-        telefono.text = "Telefono: " + productoVendido.telefono
-        nombreCliente.text = "Nombre Cliente: " + productoVendido.nombreCliente
-        direccion.text = "Direccion: " + productoVendido.direccion
+
+        cantidadVenta.text ="Cantidad:" + productoVendido.cantidad
 
         val imageUrl = productoVendido.url
 
@@ -55,41 +56,39 @@ class AdaptadorDeCeldasHistorial(private val context: Context, private val almac
             // Puedes establecer una imagen de marcador de posición o mostrar un mensaje de error, según lo prefieras.
         }
 
-        if (elementosSeleccionados.contains(productoVendido)) {
-            // Aplica un estilo diferente para los elementos seleccionados
-            filaCelda.setBackgroundColor(Color.GREEN)
+        if (position == elementoSeleccionado) {
+            // Aplica un estilo diferente para el elemento seleccionado
+            filaCelda.setBackgroundColor(Color.rgb(173, 216, 230))
         } else {
             // Restaura la apariencia predeterminada para los elementos no seleccionados
             filaCelda.setBackgroundColor(Color.TRANSPARENT)
         }
 
         filaCelda.setOnClickListener {
-            if (elementosSeleccionados.contains(productoVendido)) {
-                // El elemento ya está seleccionado, deseléccionalo
-                elementosSeleccionados.remove(productoVendido)
-            } else {
-                // El elemento no está seleccionado, selecciónalo
-                elementosSeleccionados.add(productoVendido)
-            }
+            elementoSeleccionado = position
             notifyDataSetChanged()
         }
 
         return filaCelda
     }
 
-    fun getItemsSeleccionados(): Set<Venta> {
-        return elementosSeleccionados
+    fun getItemSelected(): List<Venta> {
+        return if (elementoSeleccionado != -1) {
+            listOf(almacenDatos[elementoSeleccionado])
+        } else {
+            emptyList()
+        }
     }
 
     fun clearSelection() {
-        elementosSeleccionados.clear()
-        notifyDataSetChanged()
-    }
-    fun removeItem() {
-        almacenDatos.removeAll(elementosSeleccionados)
-        elementosSeleccionados.clear()
+        elementoSeleccionado = -1
         notifyDataSetChanged()
     }
 
-
+    fun removeItemSelected() {
+        if (elementoSeleccionado != -1) {
+            almacenDatos.removeAt(elementoSeleccionado)
+            clearSelection()
+        }
+    }
 }

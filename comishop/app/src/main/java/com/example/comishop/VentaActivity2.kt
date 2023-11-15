@@ -1,5 +1,6 @@
 package com.example.comishop
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
 class VentaActivity2 : AppCompatActivity() {
@@ -21,10 +23,12 @@ class VentaActivity2 : AppCompatActivity() {
     lateinit var nombreCliente: EditText
     lateinit var nombrePVenta: EditText
     lateinit var precioVenta: EditText
+    lateinit var cantidadVenta: EditText
     var productoAVender: Product? = null
     lateinit var imagen: ImageView
     lateinit var calculo: TextView
 
+    @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_venta2)
@@ -38,6 +42,9 @@ class VentaActivity2 : AppCompatActivity() {
             // Establece los valores del producto en los elementos de la vista
             precioUni.setText(productoAVender?.precio.toString())
             nombrePVenta.setText(productoAVender?.nombre)
+            cantidadVenta.setText("1")
+            precioUni.isEnabled = false
+            nombrePVenta.isEnabled = false
 
 
 
@@ -56,6 +63,7 @@ class VentaActivity2 : AppCompatActivity() {
         botonConfirmar = findViewById(R.id.confirmar_nuevo)
         precioVenta = findViewById(R.id.precio_venta_nuevo)
         calculo = findViewById(R.id.field_calculo)
+        cantidadVenta = findViewById(R.id.cantidad_field_venta)
 
         botonRegresar.setOnClickListener {
             finish()
@@ -96,37 +104,46 @@ class VentaActivity2 : AppCompatActivity() {
         val nombreCliente = nombreCliente.text.toString()
         val nombreProducto = nombrePVenta.text.toString()
         val precioVenta = precioVenta.text.toString().toInt()
+        val cantidad = cantidadVenta.text.toString().toInt()
 
-        // Crea un objeto Venta con los datos del formulario
-        val nuevaVenta = productoAVender?.let {
-            Venta(
-                nombreProducto,
-                precioUnitario,
-                valorDespacho,
-                direccion,
-                telefono,
-                nombreCliente,
-                precioVenta,
-                it.url
-            )
-        }  // La URL del producto deberá manejarse según tus necesidades
+        // Obtén la ID del usuario actualmente autenticado
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
 
-        // Obtén una referencia a la base de datos Firebase
-        val databaseReference = FirebaseDatabase.getInstance().getReference("venta")
+        if (userId != null) {
+            // Crea un objeto Venta con la ID del usuario
+            val nuevaVenta = productoAVender?.let {
+                Venta(
+                    nombreProducto,
+                    precioUnitario,
+                    valorDespacho,
+                    direccion,
+                    telefono,
+                    nombreCliente,
+                    precioVenta,
+                    it.url,
+                    cantidad,
+                    userId
+                )
+            }
 
-        // Genera una clave única para la venta
-        val ventaKey = databaseReference.push().key
+            // Obtén una referencia a la base de datos Firebase
+            val databaseReference = FirebaseDatabase.getInstance().getReference("venta")
 
-        if (ventaKey != null) {
-            // Agrega la nueva venta a la base de datos
-            productoAVender?.let {
-                databaseReference.child(it.nombre).setValue(nuevaVenta).addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        Toast.makeText(this, "Venta confirmada con éxito", Toast.LENGTH_SHORT).show()
-                        finish()
-                    } else {
-                        Toast.makeText(this, "Error al confirmar la venta", Toast.LENGTH_SHORT).show()
-                    }
+            // Genera una clave única para la venta
+            val ventaKey = databaseReference.push().key
+
+            if (ventaKey != null && nuevaVenta != null) {
+                // Agrega la nueva venta a la base de datos
+                productoAVender?.let {
+                    databaseReference.child(userId).child(it.nombre).setValue(nuevaVenta)
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                Toast.makeText(this, "Venta confirmada con éxito", Toast.LENGTH_SHORT).show()
+                                finish()
+                            } else {
+                                Toast.makeText(this, "Error al confirmar la venta", Toast.LENGTH_SHORT).show()
+                            }
+                        }
                 }
             }
         }
@@ -135,15 +152,18 @@ class VentaActivity2 : AppCompatActivity() {
     fun calcular() {
         val precioUnitarioStr = precioUni.text.toString()
         val precioVentaStr = precioVenta.text.toString()
+        val cantidadVentaStr = cantidadVenta.text.toString()
 
         if (precioUnitarioStr.isNotEmpty() && precioVentaStr.isNotEmpty()) {
             val precioUnitario = precioUnitarioStr.toInt()
             val precioVenta = precioVentaStr.toInt()
+            val cantVent = cantidadVentaStr.toInt()
 
             // Calcula la resta y aplica el factor de 0.3
-            val resultadoResta = (precioVenta - precioUnitario) * 0.3
+            val resultadoResta = ((precioVenta - precioUnitario)*cantVent) * 0.3
 
             // Formatea el resultado para mostrarlo con dos decimales
+
             val resultadoRestaStr = String.format("%.0f", resultadoResta)
 
             // Establece el resultado en el TextView "calculo"

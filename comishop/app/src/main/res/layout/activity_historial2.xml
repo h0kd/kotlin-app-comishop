@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_gradient"
+    android:background="@drawable/gradiente"
     tools:context="com.example.comishop.HistorialActivity">
 
     <LinearLayout
@@ -36,6 +36,7 @@
         android:layout_marginStart="27dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="43dp"
+        android:backgroundTint="#3498DB"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,9 +66,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:backgroundTint="#000f18"
+                android:backgroundTint="#3498DB"
                 android:text="Regresar"
-                android:textColor="#536DFE"
+                android:textColor="#FFFFFF"
                 tools:ignore="DuplicateSpeakableTextCheck" />
 
             <Button
@@ -77,9 +78,9 @@
                 android:layout_height="wrap_content"
 
                 android:layout_weight="1"
-                android:backgroundTint="#000f18"
+                android:backgroundTint="#3498DB"
                 android:text="eliminar"
-                android:textColor="#536DFE" />
+                android:textColor="#F6F7FB" />
 
             <Button
                 android:id="@+id/boton_editar_historial"
@@ -88,9 +89,9 @@
                 android:layout_height="wrap_content"
 
                 android:layout_weight="1"
-                android:backgroundTint="#000f18"
+                android:backgroundTint="#3498DB"
                 android:text="Editar"
-                android:textColor="#536DFE" />
+                android:textColor="#EEEFF1" />
 
         </LinearLayout>
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_gradient"
+    android:background="@drawable/gradiente"
     tools:context=".AgregarProductoActivity">
 
     <LinearLayout
@@ -69,12 +69,14 @@
             android:id="@+id/boton_insertar_producto"
             android:layout_width="match_parent"
             android:layout_height="58dp"
+            android:backgroundTint="#3498DB"
             android:text="Agregar " />
 
         <Button
             android:id="@+id/boton_volver_admin2"
             android:layout_width="match_parent"
             android:layout_height="62dp"
+            android:backgroundTint="#3498DB"
             android:text="volver" />
 
     </LinearLayout>

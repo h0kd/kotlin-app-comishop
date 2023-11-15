@@ -4,65 +4,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_gradient"
+    android:background="@drawable/gradiente"
     tools:context="com.example.comishop.ProductosActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="353dp"
-        android:layout_height="169dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="1dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="40dp"
-        android:orientation="horizontal"
+        android:layout_marginBottom="16dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/imageView2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_height="157dp"
+            android:contentDescription="@string/todo2"
+            app:srcCompat="@drawable/logo"
+            tools:srcCompat="@drawable/logo" />
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="match_parent"
-                android:layout_height="157dp"
-                android:layout_weight="1"
-                android:contentDescription="@string/todo2"
-                app:srcCompat="@drawable/logo"
-                tools:srcCompat="@drawable/logo" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bienvenido"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:text="Bienvenido" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Bienvenido"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                tools:text="Bienvenido" />
+        <TextView
+            android:id="@+id/email_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/textview2"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/email_field"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/textview2"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="304dp"
-        android:layout_height="392dp"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="26dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
@@ -76,58 +70,41 @@
 
         <ListView
             android:id="@+id/lista_productos"
-            android:layout_width="292dp"
-            android:layout_height="356dp"
-            android:background="#ACACAC" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="303dp"
-        android:layout_height="97dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
-
-        <Button
-            android:id="@+id/boton_venta"
-            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#000f18"
-            android:text="Comenzar venta"
-            android:textColor="#536DFE" />
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
+            <Button
+                android:id="@+id/boton_venta"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:backgroundTint="#27AE60"
+                android:text="Comenzar_venta"
+                android:textColor="#FFFFFF" />
 
             <Button
                 android:id="@+id/boton_historial"
-                android:layout_width="152dp"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#000f18"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:backgroundTint="#3498DB"
                 android:text="@string/ver_historial"
-                android:textColor="#536DFE" />
+                android:textColor="#FFFFFF" />
 
             <Button
                 android:id="@+id/boton_salir"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="142dp"
-                android:layout_height="match_parent"
-                android:backgroundTint="#000f18"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:backgroundTint="#3498DB"
                 android:text="@string/salir"
-                android:textColor="#536DFE" />
+                android:textColor="#FFFFFF" />
 
         </LinearLayout>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -44,14 +45,14 @@ class HistorialActivity : AppCompatActivity() {
         databaseReference = FirebaseDatabase.getInstance().getReference("venta")
 
         botonEliminar.setOnClickListener {
-            val itemsSeleccionados = adaptador.getItemsSeleccionados().toList()
+            val itemsSeleccionados = adaptador.getItemSelected().toList()
             for (itemSeleccionado in itemsSeleccionados) {
                 eliminarProductoDeFirebase(itemSeleccionado)
             }
-            adaptador.removeItem()
+            adaptador.removeItemSelected()
         }
         botonEditar.setOnClickListener {
-            val elementosSeleccionados = adaptador.getItemsSeleccionados().toList()
+            val elementosSeleccionados = adaptador.getItemSelected().toList()
             if (elementosSeleccionados.isNotEmpty()) {
                 // Verifica que se haya seleccionado solo un elemento para editar
                 if (elementosSeleccionados.size == 1) {
@@ -77,45 +78,51 @@ class HistorialActivity : AppCompatActivity() {
     }
 
     fun llenarLista() {
-        // Obtén una referencia al módulo "venta" en Firebase Realtime Database
-        val databaseReference = FirebaseDatabase.getInstance().getReference("venta")
+        // Obtén la ID del usuario actualmente autenticado
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
 
-        // Realiza una consulta para obtener todas las ventas
-        databaseReference.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val listaVentas = mutableListOf<Venta>()
+        if (userId != null) {
+            // Obtén una referencia al módulo "venta" en Firebase Realtime Database
+            val databaseReference = FirebaseDatabase.getInstance().getReference("venta").child(userId)
 
-                for (snapshot in dataSnapshot.children) {
-                    val venta = snapshot.getValue(Venta::class.java)
-                    if (venta != null) {
-                        listaVentas.add(venta)
+            // Realiza una consulta para obtener todas las ventas asociadas al usuario actual
+            databaseReference.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val listaVentas = mutableListOf<Venta>()
+
+                    for (snapshot in dataSnapshot.children) {
+                        val venta = snapshot.getValue(Venta::class.java)
+                        if (venta != null) {
+                            listaVentas.add(venta)
+                        }
                     }
+
+                    // Utiliza la propiedad adaptador de la clase en lugar de una instancia local
+                    adaptador = AdaptadorDeCeldasHistorial(this@HistorialActivity, listaVentas as ArrayList<Venta>)
+                    listaProductoBd.adapter = adaptador
+
+                    calcularTotalVentas(listaVentas)
                 }
 
-                // Utiliza la propiedad adaptador de la clase en lugar de una instancia local
-                adaptador = AdaptadorDeCeldasHistorial(this@HistorialActivity, listaVentas as ArrayList<Venta>)
-                listaProductoBd.adapter = adaptador
-
-                calcularTotalVentas(listaVentas)
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-                Toast.makeText(this@HistorialActivity, "Error en la conexión", Toast.LENGTH_SHORT).show()
-            }
-        })
+                override fun onCancelled(databaseError: DatabaseError) {
+                    Toast.makeText(this@HistorialActivity, "Error en la conexión", Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
     }
 
     private fun eliminarProductoDeFirebase(producto: Venta) {
         val productoNombre = producto.nombreProducto
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
 
-        if (productoNombre != null) {
-            // Elimina el producto de Firebase utilizando el nombre como clave
+        if (productoNombre != null && userId != null) {
+            // Elimina el producto de Firebase utilizando la ID del usuario y el nombre como clave
             Toast.makeText(this, "Producto eliminado: $productoNombre", Toast.LENGTH_SHORT).show()
-            val referenciaProducto = databaseReference.child(productoNombre)
+            val referenciaProducto = databaseReference.child(userId).child(productoNombre)
             referenciaProducto.removeValue()
 
         } else {
-            Toast.makeText(this, "Nombre del producto es nulo", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Nombre del producto o ID del usuario es nulo", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -123,10 +130,12 @@ class HistorialActivity : AppCompatActivity() {
         var total = 0
         var calculo = 0
         var comision = 0.0
+
         for (venta in listaVentas) {
-            calculo = venta.precioVenta-venta.precioUnitario
+            calculo += (venta.precioVenta-venta.precioUnitario)*venta.cantidad
             comision = calculo * 0.3
-            total += venta.precioUnitario
+            total += venta.precioUnitario*venta.cantidad
+
         }
 
         labelTotal.text = "Total Venta: $total \n" +
